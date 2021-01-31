@@ -9,7 +9,7 @@ import java.util.Arrays;
 import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.*;
 
-public class FillingFormTest {
+public class FillingFormTest extends TestBase {
     SelenideElement firstNameField = $("#firstName");
     SelenideElement lastNameField = $("#lastName");
     SelenideElement emailField = $("#userEmail");
@@ -58,12 +58,6 @@ public class FillingFormTest {
         submittedFormContainer
                 .$x(String.format(".//td[text()='%s']//following-sibling::td", label))
                 .shouldHave(Condition.text(value));
-    }
-
-
-    @BeforeAll
-    public static void setUp() {
-        Configuration.browserSize = "1920x1080";
     }
 
     @Test
