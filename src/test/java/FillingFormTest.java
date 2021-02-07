@@ -1,7 +1,6 @@
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.SelenideElement;
 import org.junit.jupiter.api.Test;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -26,8 +25,6 @@ public class FillingFormTest extends TestBase {
     SelenideElement submitButton = $("#submit");
     SelenideElement submittedFormContainer = $(".modal-content");
 
-    File picture = new File("./src/test/resources/poly-3295856_1920.png");
-
     String firstName = "Ivan";
     String lastName = "Ivanov";
     String email = "test@test.ru";
@@ -39,7 +36,7 @@ public class FillingFormTest extends TestBase {
     String fullBirthDate = dayOfBirth + " " + monthOfBirth + "," + yearOfBirth;
     ArrayList<String > subjects = new ArrayList<>(Arrays.asList("Maths", "English"));
     ArrayList<String> hobbies = new ArrayList<>(Arrays.asList("Sports", "Reading"));
-    String pictureName = picture.getName();
+    String picture = "cat.png";
     String address = "Some city, another street";
     String state = "Haryana";
     String city = "Panipat";
@@ -68,7 +65,7 @@ public class FillingFormTest extends TestBase {
         calendar.$(".react-datepicker__year-select").selectOption(yearOfBirth);
         calendar.$(".react-datepicker__month-select").selectOption(monthOfBirth);
         calendar.$(":not(.react-datepicker__day--outside-month).react-datepicker__day--0" + dayOfBirth).click();
-        uploadPictureButton.uploadFile(picture);
+        uploadPictureButton.uploadFromClasspath(picture);
         addressField.setValue(address);
         stateSelector.scrollIntoView(true).click();
         stateSelector.$(byText(state)).click();
@@ -84,7 +81,7 @@ public class FillingFormTest extends TestBase {
         checkFormValue("Date of Birth", fullBirthDate);
         checkFormValue("Subjects", subjects.get(0) + ", " + subjects.get(1));
         checkFormValue("Hobbies", hobbies.get(0) + ", " + hobbies.get(1));
-        checkFormValue("Picture", pictureName);
+        checkFormValue("Picture", picture);
         checkFormValue("Address", address);
         checkFormValue("State and City", state + " " + city);
     }
